@@ -1,6 +1,6 @@
 <template>
   <h1>Vue Calculator</h1>
-  <div class="calculator">
+  <div class="calculator" id="app">
     <div class="display">{{ current || "0" }}</div>
     <div @click="clear" class="btn">C</div>
     <div @click="sign" class="btn">+/-</div>
@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       previous: null,
-      current: "",
+      current: 0,
       operator: null,
       operatorClicked: false,
       equalClicked: false,
@@ -38,13 +38,13 @@ export default {
 
   methods: {
     clear() {
-      this.current = "";
+      this.current = 0;
       this.operator = null;
       this.operatorClicked = false;
       this.equalClicked = false;
     },
     sign() {
-      if (this.current !== "" && this.current !== "0") {
+      if (this.current !== 0) {
         this.current =
           this.current.charAt(0) === "-"
             ? this.current.slice(1)
@@ -52,16 +52,16 @@ export default {
       }
     },
     percent() {
-      if (this.current !== "")
+      if (this.current !== 0)
         this.current = `${parseFloat(this.current) / 100}`;
     },
     append(number) {
       if (this.equalClicked == true) {
-        this.current = "";
+        this.current = 0;
         this.equalClicked = false;
       }
       if (this.operatorClicked) {
-        this.current = "";
+        this.current = 0;
         this.operatorClicked = false;
         this.equalClicked = false;
       }
@@ -75,7 +75,7 @@ export default {
     },
     setPrevious() {
       this.previous = this.current;
-      this.current = "";
+      this.current = 0;
       this.operatorClicked = true;
     },
     divide() {
